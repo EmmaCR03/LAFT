@@ -1,0 +1,69 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.AnalisisDTO>
+
+@{
+    ViewBag.Title = "ListarPorId";
+}
+
+<h2>ListarPorId</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdAnalisis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdPersona)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelDeRiesgoGenerado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDePalabrasClaveEncontradas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadDeArchivosEmparejados)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeAnalisis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdAnalisis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdPersona)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelDeRiesgoGenerado)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalDePalabrasClaveEncontradas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantidadDeArchivosEmparejados)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaDeAnalisis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comentario)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

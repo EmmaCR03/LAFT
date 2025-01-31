@@ -1,0 +1,382 @@
+﻿@model LAFT.Abstracciones.Modelos.Persona.PersonaDTO
+
+<div id="header">
+    <div id="headerbar">
+        <a href="/status"><img id="headerstatus" src="../../img/headerbar/status-ok.png"></a>
+        <img id="headerfade_left" src="../../img/headerbar/fade-left.png">
+        <div id="headernews">
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p>Welcome to the TSUKI project's homepage</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p style="color: lime">Registrations open</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p style="color: lime">Gates open</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p>4969 users registered</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p>Latest news: "Object assignment"</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+            <p>Life is linked.</p>
+            <img class="newssep" src="../../img/headerbar/sep.png">
+        </div>
+    </div>
+    <a href="/"><img id="knob" src="../../img/headerbar/knobs/tsuki_knob.png" /></a>
+    <a href="https://systemspace.link/"><img id="knob4" src="../../img/headerbar/knobs/officialknob.png" /></a>
+    <a href="/login"><img id="knob5" src="../../img/headerbar/knobs/loginknob.png" /></a>
+    <a href="/preferences"><img id="knob2" src="../../img/headerbar/knobs/prefsknob.png" /></a>
+</div>
+<style>
+
+    html {
+        background-color: #000;
+        color: #000;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    #wallpaper {
+        width: 100%;
+        height: 70vh;
+        background-color: #000;
+        background-image: url(../img/bg/home.png);
+        background-attachment: fixed;
+        background-position: center 40%; /* Cambia el 40% para moverlo más abajo o más arriba */
+    }
+
+        #wallpaper #lain {
+            position: absolute;
+            top: calc(70vh - 400px); /* Ajusta este valor para desplazar la imagen de Lain hacia abajo */
+            left: 10vw;
+            transition: top 0s;
+        }
+
+        #wallpaper h1 {
+            position: absolute;
+            left: calc(10vw + 450px);
+            top: calc(80vh - 200px); /* Ajusta este valor según sea necesario */
+            font-family: Heading;
+            font-size: 3vw;
+            text-shadow: 3px 6px #000, 0px -1px #000, 0px 1px #000, -1px 0px #000, 1px 0px #000, -1px -1px #000, 1px 1px #000, -1px 1px #000, 1px -1px #000;
+            transition: top 0s;
+        }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin: 0 auto; /* Centra el contenido */
+        width: 70%; /* Usa el 90% del ancho total */
+        max-width: 1200px; /* Define un máximo para evitar que se vea demasiado grande */
+        background-color: #000;
+        overflow-x: auto; /* Permite el desplazamiento horizontal si la tabla es muy ancha */
+        padding: 20px; /* Añade algo de espacio interno */
+        box-sizing: border-box; /* Incluye el padding dentro del ancho */
+    }
+
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+    #index.usage {
+        background-image: url(../../img/bg/usage.png)
+    }
+    #index {
+        background-color: #000;
+        background-image: url(../img/bg/index.png);
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+
+    #header {
+        position: relative;
+        z-index: 1;
+    }
+
+    #headerbar {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 20px;
+        background-color: #000;
+        box-shadow: 0px 1px #FFF, 0px 2px #000;
+    }
+
+    #headerstatus {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    #headerfade_left {
+        position: fixed;
+        left: 150px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #headernews {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        animation: marquee 15s linear infinite;
+    }
+
+        #headernews span {
+            display: inline-block;
+            padding-right: 30px;
+        }
+
+    #knob {
+        position: fixed;
+        left: 0;
+        top: 20px;
+    }
+
+    #knob2 {
+        position: fixed;
+        right: 0;
+        top: 20px;
+    }
+
+    #knob3 {
+        position: fixed;
+        right: 100px;
+        top: 20px;
+    }
+
+    #knob4 {
+        position: fixed;
+        left: 200px;
+        top: 20px;
+    }
+
+    #knob5 {
+        position: fixed;
+        left: 350px;
+        top: 20px;
+    }
+
+    #knob6 {
+        position: fixed;
+        left: 460px;
+        top: 20px;
+    }
+
+    #knob7 {
+        position: fixed;
+        left: 492px;
+        top: 20px;
+    }
+
+    .spacing-between-header-nav {
+        margin-bottom: 20px; /* Ajusta según necesites */
+    }
+</style>
+@{
+    ViewBag.Title = "Details";
+}
+<div id="index" class="usage">
+
+    <div id="overload" class="overload">
+        <div>
+            <h4>Details</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.IdentificacionPersona)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.IdentificacionPersona)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TipoIdentificacion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TipoIdentificacion)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.NombrePersona)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.NombrePersona)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.PrimerApellidoPersona)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.PrimerApellidoPersona)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.SegundoApellidoPersona)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.SegundoApellidoPersona)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Telefono)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Telefono)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.CorreoElectronico)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.CorreoElectronico)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Direccion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Direccion)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.EstadoDeRiesgo)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.EstadoDeRiesgo)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FechaDeRegistro)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FechaDeRegistro)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.FechaDeModificacion)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.FechaDeModificacion)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Estado)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Estado)
+                </dd>
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Pagina Principal", "IndexPersona")
+        </p>

@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TSUKI</title>
+    <meta name="theme-color" content="#000000">
+
+</head>
+<style>
+
+
+    html {
+        background-color: #000;
+        color: #000;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../img/ui/cursor.png), default
+    }
+
+a {
+    cursor: url(../img/ui/pointer.png), default;
+    color: inherit;
+    text-decoration: none
+}
+
+h1 {
+    font-family: Heading
+}
+
+   #wallpaper {
+    width: 100%;
+    height: 70vh;
+    background-color: #000;
+    background-image: url(../img/bg/home.png);
+    background-attachment: fixed;
+    background-position: center 40%; /* Cambia el 40% para moverlo más abajo o más arriba */
+}
+
+#wallpaper #lain {
+    position: absolute;
+    top: calc(70vh - 400px);  /* Ajusta este valor para desplazar la imagen de Lain hacia abajo */
+    left: 10vw;
+    transition: top 0s;
+}
+
+#wallpaper h1 {
+    position: absolute;
+    left: calc(10vw + 450px);
+    top: calc(70vh - 300px); /* Ajusta este valor según sea necesario */
+    font-family: Heading;
+    font-size: 3vw;
+    text-shadow: 3px 6px #000, 0px -1px #000, 0px 1px #000, -1px 0px #000, 1px 0px #000, -1px -1px #000, 1px 1px #000, -1px 1px #000, 1px -1px #000;
+    transition: top 0s;
+}
+
+*::-moz-selection {
+    color: #000;
+    background-color: #fff
+}
+
+*::selection {
+    color: #000;
+    background-color: #fff
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px
+}
+
+::-webkit-scrollbar-track {
+    background: transparent
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff
+}
+
+.seperator {
+    width: 100%;
+    height: 32px;
+    background-image: url(../img/ui/seperator.png)
+}
+
+.seperate {
+    width: 100%;
+    height: 32px;
+    background-image: url(../img/ui/seperate.png)
+}
+
+.syn {
+    font-family: S
+}
+
+.padded {
+    padding-left: 10vw;
+    padding-right: 10vw
+}
+
+.overload {
+    margin-left: 20vw;
+    width: calc(100% - 40vw);
+    background-color: #000
+}
+
+.link {
+    color: #ff0
+}
+
+    .link:hover {
+        color: #ff0;
+        text-decoration: none
+    }
+
+.overno {
+    color: #888 !important;
+    pointer-events: none
+}
+
+    .overno:hover {
+        background-color: #888 !important;
+        color: #000 !important
+    }
+
+#index {
+    background-color: #000;
+    background-image: url(../img/bg/index.png);
+    background-attachment: fixed;
+    background-position: center;
+    padding: 5.2em 10vw
+}
+
+.indexlist {
+    width: calc(100% - 170px);
+    display: inline-block;
+    height: 64px;
+    line-height: 64px;
+    vertical-align: 28px
+}
+
+    .indexlist span {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal
+    }
+
+    .indexlist a,
+    .linkt1 {
+        color: #ff0
+    }
+
+        .indexlist a:hover,
+        .linkt1:hover {
+            background-color: #ff0;
+            color: #000
+        }
+
+
+#header {
+    position: relative;
+    z-index: 1;
+    color: floralwhite;
+}
+
+    #headerbar {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 20px;
+        background-color: #000;
+        box-shadow: 0px 1px #FFF, 0px 2px #000;
+        color: floralwhite;
+    }
+
+    #headerstatus {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headerfade_left {
+        position: fixed;
+        left: 150px;
+        top: 0px;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headernews {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        color: floralwhite;
+        animation: marquee 15s linear infinite;
+    }
+
+        #headernews span {
+            display: inline-block;
+            padding-right: 30px;
+            color: floralwhite;
+        }
+
+#knob {
+    position: fixed;
+    left: 0;
+    top: 20px;
+}
+
+#knob2 {
+    position: fixed;
+    right: 0;
+    top: 20px;
+}
+
+#knob3 {
+    position: fixed;
+    right: 100px;
+    top: 20px;
+}
+
+#knob4 {
+    position: fixed;
+    left: 200px;
+    top: 20px;
+}
+
+#knob5 {
+    position: fixed;
+    left: 350px;
+    top: 20px;
+}
+
+#knob6 {
+    position: fixed;
+    left: 460px;
+    top: 20px;
+}
+
+#knob7 {
+    position: fixed;
+    left: 492px;
+    top: 20px;
+}
+.spacing-between-header-nav {
+    margin-bottom: 20px; /* Ajusta según necesites */
+}
+
+    body {
+        background-color: black;
+        color: white; /* Para que el texto sea legible */
+    }
+
+    a {
+        color: yellow;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: white;
+    }
+
+
+</style>
+<body style="background-color: black; color: white;">
+
+    <main>
+        <div id="flyer"></div>
+        <div id="wallpaper">
+            <img id="lain" src="../img/others/lain.png" alt="Lain">
+            <h1>Unlink the world.<br>Unlock the rest.</h1>
+        </div>
+        <div class="seperator"></div>
+        <h1>Bienvenido al Sistema LAFT</h1>
+        <p>
+            En Costa Rica, la lucha contra el <span style="color: red;">Lavado de Activos y Financiamiento del Terrorismo (LAFT)</span> es una prioridad nacional.
+            Con el objetivo de proteger la <span style="color: yellow;">integridad del sistema financiero</span>, se implementó la
+            <span style="color: red;">Ley Antilavado de Dinero</span>, la cual obliga a las entidades financieras y otras actividades económicas
+            vulnerables a cumplir con estrictos lineamientos de <span style="color: yellow;">prevención, monitoreo e informe</span> de actividades sospechosas.
+        </p>
+        <p>
+            Las actividades vulnerables incluyen a profesionales en <span style="color: yellow;">derecho</span>,
+            <span style="color: yellow;">contaduría</span>, y otras áreas que realicen transacciones para clientes que se dediquen a actividades como:
+        </p>
+        <ul>
+            <li><span style="color: red;">Casinos</span></li>
+            <li><span style="color: red;">Compra y venta de bienes y muebles</span></li>
+            <li><span style="color: yellow;">Comercio de metales y piedras preciosas</span></li>
+            <li><span style="color: yellow;">Administración de dinero</span></li>
+            <li><span style="color: red;">Cuentas bancarias, de ahorro, valores u otros activos</span></li>
+        </ul>
+        <p>
+            Estas actividades son supervisadas de manera estricta para prevenir el uso de sus servicios como medio para
+            <span style="color: red;">legitimar fondos ilícitos</span>. El cumplimiento de estas regulaciones no solo es una obligación legal,
+            sino una acción clave para fortalecer la <span style="color: yellow;">seguridad y transparencia financiera</span> del país.
+        </p>
+        </section>
+        <section>
+            <div class="seperate"></div>
+            <center>
+                <div id="stats">
+                    <h2 style="color: yellow;">Un compromiso con la legalidad y la transparencia</h2>
+                    <p>
+                        El Sistema LAFT ofrece las herramientas necesarias para que las organizaciones gestionen de forma
+                        <span style="color: yellow;">eficiente</span> y <span style="color: red;">segura</span> la detección de posibles casos de
+                        <span style="color: red;">lavado de dinero</span> y <span style="color: yellow;">financiamiento del terrorismo</span>.
+                    </p>
+                </div>
+            </center>
+        </section>
+        <div class="seperate"></div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div id="index">
+                <div class="overload">
+                    <img src="../img/pageindex/logos/tsuki.png" />
+                    <img src="../img/pageindex/right.png" />
+                    <div class="indexlist">
+                        <span>
+                            <a href="/Persona/IndexPersona">PERSONAS</a> |
+                            <a href="/ActividadesFinancieras/IndexActividadesFinancieras">ACTIVIDADES FINANCIERAS</a> |
+                            <a href="/ArchivosAnalisis/IndexArchivosAnalisis">ARCHIVOS ANÁLISIS</a> |
+                            <a href="/PalabrasClave/IndexPalabrasClave">PALABRAS CLAVE</a>
+                        </span>
+                    </div>
+                    <br>
+                    <img src="../img/pageindex/logos/risen.png" />
+                    <img src="../img/pageindex/right.png" />
+                    <div class="indexlist">
+                        <span>
+                            <a href="/Persona/Create">REGISTRAR PERSONAS</a> |
+                            <a href="/ActividadesFinancieras/Create">REGISTRAR ACTIVIDADES FINANCIERAS</a> |
+                            <a href="/ArchivosAnalisis/Create">REGISTRAR ARCHIVOS ANÁLISIS</a> |
+                            <a href="/PalabrasClave/Create">REGISTRAR PALABRAS CLAVE</a>
+                        </span>
+                    </div>
+                    <br>
+                    <img src="../img/pageindex/logos/endymion.png" />
+                    <img src="../img/pageindex/right.png" />
+                    <div class="indexlist">
+                        <span>
+                            <a href="/Bitacoras/Index" class="overno">BITÁCORAS</a> |
+                            <a href="/BitacoraEventos/IndexBitacoraEventos">BITÁCORA DE EVENTOS</a>
+                        </span>
+                        <br>
+
+                    </div>
+                </div>
+
+            </div>
+        }
+        <center>This site is intended as an archive of the version of systemspace.link that was up during 2017. Please visit <a class="link" href="/copyright">Copyright</a> for more information. - <a id="replay">replay intro</span></center>
+
+
+
+
+</body>
+</html>
+
+
+
+@section scripts {
+    <script src="~/Scripts/ScriptsFront/General/Howler/howler.js"></script>
+    <script src="~/Scripts/ScriptsFront/General/Overlay/overlay.js"></script>
+    <script src="scripts.js"></script>
+
+}

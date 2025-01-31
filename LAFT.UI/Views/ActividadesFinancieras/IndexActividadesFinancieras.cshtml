@@ -1,0 +1,341 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.ActividadesFinancieras.ActividadesFinancierasDTO>
+@{
+    ViewBag.Title = "IndexActividadesFinancieras";
+}
+<style>
+    table {
+        background-color: white; /* Fondo blanco para la tabla */
+        color: black; /* Letra negra */
+        border: 1px solid #ccc; /* Borde de la tabla */
+        width: 100%; /* Ancho completo */
+        border-collapse: collapse; /* Fusiona bordes de celdas */
+    }
+
+    th, td {
+        padding: 10px; /* Espaciado interno en celdas */
+        text-align: left; /* Alineación del texto */
+        border: 1px solid #ccc; /* Bordes entre celdas */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Fondo gris claro para encabezados */
+        font-weight: bold; /* Letras en negrita */
+    }
+
+    tbody tr:nth-child(odd) {
+        background-color: #f9f9f9; /* Fondo alternado claro */
+    }
+
+    tbody tr:nth-child(even) {
+        background-color: #ffffff; /* Fondo alternado blanco */
+    }
+</style>
+<style>
+
+    html {
+        background-color: #000;
+        color: #000;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    #wallpaper {
+        width: 100%;
+        height: 70vh;
+        background-color: #000;
+        background-image: url(../img/bg/home.png);
+        background-attachment: fixed;
+        background-position: center 40%; /* Cambia el 40% para moverlo más abajo o más arriba */
+    }
+
+        #wallpaper #lain {
+            position: absolute;
+            top: calc(70vh - 400px); /* Ajusta este valor para desplazar la imagen de Lain hacia abajo */
+            left: 10vw;
+            transition: top 0s;
+        }
+
+        #wallpaper h1 {
+            position: absolute;
+            left: calc(10vw + 450px);
+            top: calc(80vh - 200px); /* Ajusta este valor según sea necesario */
+            font-family: Heading;
+            font-size: 3vw;
+            text-shadow: 3px 6px #000, 0px -1px #000, 0px 1px #000, -1px 0px #000, 1px 0px #000, -1px -1px #000, 1px 1px #000, -1px 1px #000, 1px -1px #000;
+            transition: top 0s;
+        }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin: 0 auto; /* Centra el contenido */
+        width: 90%; /* Usa el 90% del ancho total */
+        max-width: 1200px; /* Define un máximo para evitar que se vea demasiado grande */
+        background-color: #000;
+        overflow-x: auto; /* Permite el desplazamiento horizontal si la tabla es muy ancha */
+        padding: 20px; /* Añade algo de espacio interno */
+        box-sizing: border-box; /* Incluye el padding dentro del ancho */
+    }
+
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+
+    #index {
+        background-color: #000;
+        background-image: url(../img/bg/index.png);
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+
+    #header {
+        position: relative;
+        z-index: 1;
+    }
+
+    #headerbar {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 20px;
+        background-color: #000;
+        box-shadow: 0px 1px #FFF, 0px 2px #000;
+    }
+
+    #headerstatus {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+    }
+
+    #headerfade_left {
+        position: fixed;
+        left: 150px;
+        top: 0px;
+        z-index: 1;
+    }
+
+    #headernews {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        animation: marquee 15s linear infinite;
+    }
+
+        #headernews span {
+            display: inline-block;
+            padding-right: 30px;
+        }
+
+    #knob {
+        position: fixed;
+        left: 0;
+        top: 20px;
+    }
+
+    #knob2 {
+        position: fixed;
+        right: 0;
+        top: 20px;
+    }
+
+    #knob3 {
+        position: fixed;
+        right: 100px;
+        top: 20px;
+    }
+
+    #knob4 {
+        position: fixed;
+        left: 200px;
+        top: 20px;
+    }
+
+    #knob5 {
+        position: fixed;
+        left: 350px;
+        top: 20px;
+    }
+
+    #knob6 {
+        position: fixed;
+        left: 460px;
+        top: 20px;
+    }
+
+    #knob7 {
+        position: fixed;
+        left: 492px;
+        top: 20px;
+    }
+
+    .spacing-between-header-nav {
+        margin-bottom: 20px; /* Ajusta según necesites */
+    }
+</style>
+<div id="index" class="dataverses">
+    <div id="overload" class="overload">
+        <h2>La Lista De Actividades Financieras</h2>
+
+        <p>
+            @Html.ActionLink("Crear nuevo", "Create", null, new { @class = "btn btn-sm btn-primary" })
+        </p>
+
+        <div class="table-responsive">
+            <table id="myTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.NombreActividadFinanciera)</th>
+                        <th>@Html.DisplayNameFor(model => model.DescripcionActividadFinanciera)</th>
+                        <th>@Html.DisplayNameFor(model => model.NivelDeRiesgo)</th>
+                        <th>@Html.DisplayNameFor(model => model.FechaDeRegistro)</th>
+                        <th>@Html.DisplayNameFor(model => model.FechaDeModificacion)</th>
+                        <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.NombreActividadFinanciera)</td>
+                            <td>@Html.DisplayFor(modelItem => item.DescripcionActividadFinanciera)</td>
+                            <td>@Html.DisplayFor(modelItem => item.NivelDeRiesgo)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaDeRegistro)</td>
+                            <td>@Html.DisplayFor(modelItem => item.FechaDeModificacion)</td>
+                            <td>
+                                @if (item.Estado)
+                                {
+                                    <span class="badge bg-success">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Inactivo</span>
+                                }
+                            </td>
+                            <td class="d-flex gap-2">
+                                @using (Html.BeginForm("ToggleEstado", "ActividadesFinancieras", FormMethod.Post))
+                                {
+                                    @Html.Hidden("IdActividadFinanciera", item.IdActividadFinanciera)
+                                    @Html.Hidden("Estado", !item.Estado)
+
+                                    <!-- Botón con Bootstrap -->
+                                    <button type="submit" class="btn @(item.Estado ? "btn-xs btn-success" : "btn-xs btn-danger")">
+                                        @(item.Estado ? "Activo" : "Inactivo")
+                                    </button>
+                                }
+
+                                @Html.ActionLink("Editar", "Edit", new { IdActividadFinanciera = item.IdActividadFinanciera }, new { @class = "btn btn-xs btn-warning" })
+                            </td>
+
+
+                        </tr>
+        }
+                    </tbody>
+                    </table>
+                </div>
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/ScriptsFront/General/DataTable/DataTable.js"></script>
+    <script src="~/Scripts/ScriptsFront/General/SweetAlert/SweetAlertEstado.js"></script>
+}

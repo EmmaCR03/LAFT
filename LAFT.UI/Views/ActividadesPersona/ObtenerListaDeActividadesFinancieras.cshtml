@@ -1,0 +1,63 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.ActividadesFinancieras.ActividadesFinancierasDTO>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IdActividadFinanciera)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NombreActividadFinanciera)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DescripcionActividadFinanciera)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NivelDeRiesgo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeModificacion)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Estado)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdActividadFinanciera)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreActividadFinanciera)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DescripcionActividadFinanciera)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NivelDeRiesgo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaDeRegistro)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaDeModificacion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Estado)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>

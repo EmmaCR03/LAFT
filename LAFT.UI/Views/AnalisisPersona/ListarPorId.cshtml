@@ -1,0 +1,78 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.PersonaAnalizadaDto>
+
+@{
+    ViewBag.Title = "ListarPorId";
+}
+
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.NivelDeRiesgoGenerado)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalDePalabrasClaveEncontradas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CantidadDeArchivosEmparejados)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDeAnalisis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Comentario)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        @{
+            var nivelRiesgo = "";
+            if (item.NivelDeRiesgoGenerado == 0)
+            {
+                nivelRiesgo = "Sin Análisis";
+            }
+            else if (item.NivelDeRiesgoGenerado == 1)
+            {
+
+                nivelRiesgo = "Riesgo Bajo";
+            }
+            else if (item.NivelDeRiesgoGenerado == 2)
+            {
+
+                nivelRiesgo = "Riesgo Medio";
+            }
+
+            else if (item.NivelDeRiesgoGenerado == 3)
+            {
+
+                nivelRiesgo = "Riesgo Alto";
+            }
+
+            else
+            {
+                nivelRiesgo = "Riesgo Critico";
+            }
+        }
+        <td>
+            @Html.DisplayFor(modelItem => nivelRiesgo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalDePalabrasClaveEncontradas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CantidadDeArchivosEmparejados)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaDeAnalisis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comentario)
+        </td>
+        <td>
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,466 @@
+﻿@using LAFT.Models
+@model LoginViewModel
+
+
+<style>
+
+
+    html {
+        background-color: #000;
+        color: #000;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    #wallpaper {
+        width: 100%;
+        height: 70vh;
+        background-color: #000;
+        background-image: url(../img/bg/home.png);
+        background-attachment: fixed;
+        background-position: center 40%; /* Cambia el 40% para moverlo más abajo o más arriba */
+    }
+
+        #wallpaper #lain {
+            position: absolute;
+            top: calc(70vh - 400px); /* Ajusta este valor para desplazar la imagen de Lain hacia abajo */
+            left: 10vw;
+            transition: top 0s;
+        }
+
+        #wallpaper h1 {
+            position: absolute;
+            left: calc(10vw + 450px);
+            top: calc(70vh - 300px); /* Ajusta este valor según sea necesario */
+            font-family: Heading;
+            font-size: 3vw;
+            text-shadow: 3px 6px #000, 0px -1px #000, 0px 1px #000, -1px 0px #000, 1px 0px #000, -1px -1px #000, 1px 1px #000, -1px 1px #000, 1px -1px #000;
+            transition: top 0s;
+        }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin-left: 20vw;
+        width: calc(100% - 40vw);
+        background-color: #000
+    }
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+
+    #index {
+        background-color: #000;
+        background-image: url(../img/bg/index.png);
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+
+    #header {
+        position: relative;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headerbar {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 20px;
+        background-color: #000;
+        box-shadow: 0px 1px #FFF, 0px 2px #000;
+        color: floralwhite;
+    }
+
+    #headerstatus {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headerfade_left {
+        position: fixed;
+        left: 150px;
+        top: 0px;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headernews {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        color: floralwhite;
+        animation: marquee 15s linear infinite;
+    }
+
+        #headernews span {
+            display: inline-block;
+            padding-right: 30px;
+            color: floralwhite;
+        }
+
+    #knob {
+        position: fixed;
+        left: 0;
+        top: 20px;
+    }
+
+    #knob2 {
+        position: fixed;
+        right: 0;
+        top: 20px;
+    }
+
+    #knob3 {
+        position: fixed;
+        right: 100px;
+        top: 20px;
+    }
+
+    #knob4 {
+        position: fixed;
+        left: 200px;
+        top: 20px;
+    }
+
+    #knob5 {
+        position: fixed;
+        left: 350px;
+        top: 20px;
+    }
+
+    #knob6 {
+        position: fixed;
+        left: 460px;
+        top: 20px;
+    }
+
+    #knob7 {
+        position: fixed;
+        left: 492px;
+        top: 20px;
+    }
+
+    .spacing-between-header-nav {
+        margin-bottom: 20px; /* Ajusta según necesites */
+    }
+
+    body {
+        background-color: black;
+        color: white; /* Para que el texto sea legible */
+    }
+
+    a {
+        color: yellow;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: white;
+    }
+</style>
+<style>
+    html {
+        background-color: #000;
+        color: #fff;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin: 0 auto; /* Centra el elemento horizontalmente */
+        max-width: 80%; /* Establece el ancho máximo */
+        width: 100%; /* Ocupa todo el espacio disponible */
+        background-color: #000;
+    }
+
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+
+    #index {
+        background-color: #000;
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+    #index.dataverses {
+        background-image: url(../img/bg/dataversesd.png)
+    }
+
+    #index.recruit {
+        background-image: url(../img/bg/recruit.png)
+    }
+
+    #index.gates {
+        background-image: url(../img/bg/gates.png)
+    }
+
+    #index.dataverses h6 {
+        font-weight: 700;
+        font-size: 70%;
+        margin: 2.33em 0
+    }
+</style>
+@{
+    ViewBag.Title = "Iniciar sesión";
+}
+<div id="index" class="gates">
+
+    <div id="overload" class="overload">
+        <main aria-labelledby="title">
+            <h2 id="title">@ViewBag.Title.</h2>
+            <div class="row">
+                <div class="col-md-8">
+                    <section id="loginForm">
+                        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <h4>Utilice una cuenta local para iniciar sesión.</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="row">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                                <div class="col-md-10">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-md-2 col-md-10">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(m => m.RememberMe)
+                                        @Html.LabelFor(m => m.RememberMe)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="offset-md-2 col-md-10">
+                                    <input type="submit" value="Iniciar sesión" class="btn btn-outline-dark" />
+                                </div>
+                            </div>
+                            <p>
+                                @Html.ActionLink("Registrarse como usuario nuevo", "Register")
+                            </p>
+                            @* Habilite esta opción una vez tenga la confirmación de la cuenta habilitada para la funcionalidad de restablecimiento de contraseña
+                                <p>
+                                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                                </p>*@
+                        }
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <section id="socialLoginForm">
+                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                    </section>
+                </div>
+            </div>
+        </main>
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }

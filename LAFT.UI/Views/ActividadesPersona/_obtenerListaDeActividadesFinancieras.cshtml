@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.ActividadesFinancieras.ActividadesFinancierasDTO>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.IdActividadFinanciera)</th>
+                <th>@Html.DisplayNameFor(model => model.NombreActividadFinanciera)</th>
+                <th>@Html.DisplayNameFor(model => model.DescripcionActividadFinanciera)</th>
+                <th>@Html.DisplayNameFor(model => model.NivelDeRiesgo)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaDeRegistro)</th>
+                <th>@Html.DisplayNameFor(model => model.FechaDeModificacion)</th>
+                <th>@Html.DisplayNameFor(model => model.Estado)</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.IdActividadFinanciera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NombreActividadFinanciera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DescripcionActividadFinanciera)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NivelDeRiesgo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaDeRegistro)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FechaDeModificacion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Estado)</td>
+                    <td>
+                        <!-- Botón para seleccionar la actividad -->
+                        <button type="button" class="btn btn-primary seleccionar-actividad"
+                                data-id="@item.IdActividadFinanciera"
+                                data-nombre="@item.NombreActividadFinanciera">
+                            Seleccionar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

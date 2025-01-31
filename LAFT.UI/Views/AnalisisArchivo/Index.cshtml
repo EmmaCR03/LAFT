@@ -1,0 +1,50 @@
+﻿@model IEnumerable<LAFT.Abstracciones.Modelos.ArchivosAnalisis.ArchivosAnalisisDTO>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Crear Archivo de Analisis", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre del Archivo
+        </th>
+        <th>
+            Texto del Archivo
+        </th>
+        <th>
+            Fuente de Información
+        </th>
+        <th>
+            Fecha de Registro
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TextoDelArchivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fuente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDeRegistro)
+            </td>
+            <td>
+                @Html.ActionLink("Detalles", "Details", new { IdArchivo = item.IdArchivo })
+            </td>
+        </tr>
+    }
+</table>
+    

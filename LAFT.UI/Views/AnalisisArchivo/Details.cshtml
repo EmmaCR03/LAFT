@@ -1,0 +1,48 @@
+﻿@model LAFT.Abstracciones.Modelos.ArchivosAnalisis.ArchivosAnalisisDTO
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ArchivosAnalisisDto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+       
+
+        <dt>
+            Nombre del Archivo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            Contenido
+        </dt>
+        <dd>
+            @Html.TextAreaFor(model => model.TextoDelArchivo, new { @class = "form-control", rows = 5, style = "resize: vertical;" })
+        </dd>
+
+        <dt>
+            Fuente de Información
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fuente)
+        </dd>
+
+        <dt>
+            Fecha de Registro
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaDeRegistro)
+        </dd>
+    </dl>
+
+    <p>
+        @Html.ActionLink("Volver a la Lista", "Index")
+    </p>
+
+    </div>

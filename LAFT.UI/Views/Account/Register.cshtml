@@ -1,0 +1,465 @@
+﻿@model LAFT.Models.RegisterViewModel
+<style>
+
+
+    html {
+        background-color: #000;
+        color: #000;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    #wallpaper {
+        width: 100%;
+        height: 70vh;
+        background-color: #000;
+        background-image: url(../img/bg/home.png);
+        background-attachment: fixed;
+        background-position: center 40%; /* Cambia el 40% para moverlo más abajo o más arriba */
+    }
+
+        #wallpaper #lain {
+            position: absolute;
+            top: calc(70vh - 400px); /* Ajusta este valor para desplazar la imagen de Lain hacia abajo */
+            left: 10vw;
+            transition: top 0s;
+        }
+
+        #wallpaper h1 {
+            position: absolute;
+            left: calc(10vw + 450px);
+            top: calc(70vh - 300px); /* Ajusta este valor según sea necesario */
+            font-family: Heading;
+            font-size: 3vw;
+            text-shadow: 3px 6px #000, 0px -1px #000, 0px 1px #000, -1px 0px #000, 1px 0px #000, -1px -1px #000, 1px 1px #000, -1px 1px #000, 1px -1px #000;
+            transition: top 0s;
+        }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin-left: 20vw;
+        width: calc(100% - 40vw);
+        background-color: #000
+    }
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+
+    #index {
+        background-color: #000;
+        background-image: url(../img/bg/index.png);
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+
+    #header {
+        position: relative;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headerbar {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        top: 0;
+        height: 20px;
+        background-color: #000;
+        box-shadow: 0px 1px #FFF, 0px 2px #000;
+        color: floralwhite;
+    }
+
+    #headerstatus {
+        position: fixed;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headerfade_left {
+        position: fixed;
+        left: 150px;
+        top: 0px;
+        z-index: 1;
+        color: floralwhite;
+    }
+
+    #headernews {
+        display: flex;
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        color: floralwhite;
+        animation: marquee 15s linear infinite;
+    }
+
+        #headernews span {
+            display: inline-block;
+            padding-right: 30px;
+            color: floralwhite;
+        }
+
+    #knob {
+        position: fixed;
+        left: 0;
+        top: 20px;
+    }
+
+    #knob2 {
+        position: fixed;
+        right: 0;
+        top: 20px;
+    }
+
+    #knob3 {
+        position: fixed;
+        right: 100px;
+        top: 20px;
+    }
+
+    #knob4 {
+        position: fixed;
+        left: 200px;
+        top: 20px;
+    }
+
+    #knob5 {
+        position: fixed;
+        left: 350px;
+        top: 20px;
+    }
+
+    #knob6 {
+        position: fixed;
+        left: 460px;
+        top: 20px;
+    }
+
+    #knob7 {
+        position: fixed;
+        left: 492px;
+        top: 20px;
+    }
+
+    .spacing-between-header-nav {
+        margin-bottom: 20px; /* Ajusta según necesites */
+    }
+
+    body {
+        background-color: black;
+        color: white; /* Para que el texto sea legible */
+    }
+
+    a {
+        color: yellow;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        color: white;
+    }
+</style>
+<style>
+    html {
+        background-color: #000;
+        color: #fff;
+        font-family: paragraph, sans-serif;
+        font-size: 16px;
+        cursor: url(../img/ui/cursor.png), default
+    }
+
+    a {
+        cursor: url(../img/ui/pointer.png), default;
+        color: inherit;
+        text-decoration: none
+    }
+
+    h1 {
+        font-family: Heading
+    }
+
+    *::-moz-selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    *::selection {
+        color: #000;
+        background-color: #fff
+    }
+
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #fff
+    }
+
+    .seperator {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperator.png)
+    }
+
+    .seperate {
+        width: 100%;
+        height: 32px;
+        background-image: url(../../img/ui/seperate.png)
+    }
+
+    .syn {
+        font-family: S
+    }
+
+    .padded {
+        padding-left: 10vw;
+        padding-right: 10vw
+    }
+
+    .overload {
+        margin: 0 auto; /* Centra el elemento horizontalmente */
+        max-width: 80%; /* Establece el ancho máximo */
+        width: 100%; /* Ocupa todo el espacio disponible */
+        background-color: #000;
+    }
+
+
+    .link {
+        color: #ff0
+    }
+
+        .link:hover {
+            color: #ff0;
+            text-decoration: none
+        }
+
+    .overno {
+        color: #888 !important;
+        pointer-events: none
+    }
+
+        .overno:hover {
+            background-color: #888 !important;
+            color: #000 !important
+        }
+
+    #index {
+        background-color: #000;
+        background-attachment: fixed;
+        background-position: center;
+        padding: 5.2em 10vw
+    }
+
+    .indexlist {
+        width: calc(100% - 170px);
+        display: inline-block;
+        height: 64px;
+        line-height: 64px;
+        vertical-align: 28px
+    }
+
+        .indexlist span {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: normal
+        }
+
+        .indexlist a,
+        .linkt1 {
+            color: #ff0
+        }
+
+            .indexlist a:hover,
+            .linkt1:hover {
+                background-color: #ff0;
+                color: #000
+            }
+
+    #index.dataverses {
+        background-image: url(../img/bg/dataversesd.png)
+    }
+
+    #index.recruit {
+        background-image: url(../img/bg/recruit.png)
+    }
+
+    #index.auroraleft {
+        background-image: url(../img/bg/auroraleft.png)
+    }
+
+    #index.dataverses h6 {
+        font-weight: 700;
+        font-size: 70%;
+        margin: 2.33em 0
+    }
+</style>
+@{
+    ViewBag.Title = "Registrarse";
+}
+
+<main aria-labelledby="title">
+    <div id="index" class="auroraleft">
+
+        <div id="overload" class="overload">
+            <h2 id="title">@ViewBag.Title.</h2>
+
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+            {
+                <div id="padded" class="padded">
+
+                    @Html.AntiForgeryToken()
+                    <h4>Cree una cuenta nueva.</h4>
+                    <div id="separate" class="separate">
+
+                        <hr />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="row">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Rol, "Seleccione un rol", new { @class = "col-md-2 col-form-label" })
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(
+                                    model => model.Rol,
+                                    new SelectList(new List<SelectListItem>
+                                    {
+                                        new SelectListItem { Value = "Administrador", Text = "Administrador" },
+                                        new SelectListItem { Value = "Analista", Text = "Analista" }
+                                    }, "Value", "Text"),
+                                    "Seleccione un rol",
+                                    new { @class = "form-control" }
+                                )
+                                @Html.ValidationMessageFor(model => model.Rol, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="offset-md-2 col-md-10">
+                                <input type="submit" value="Registrarse" class="btn btn-light" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+</main>
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
