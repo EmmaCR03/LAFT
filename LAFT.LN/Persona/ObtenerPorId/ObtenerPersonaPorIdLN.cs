@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.Persona.ObtenerPorID;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.Persona.ObtenerPorID;
 using LAFT.Abstracciones.LN.Interfaces.Persona.ObtenerPorId;
 using LAFT.Abstracciones.Modelos.Persona;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.Persona.Persona;
@@ -22,11 +22,15 @@ namespace LAFT.LN.Persona.ObtenerPorId
             _fecha = new Fecha();
         }
 
-        public PersonaDTO Obtener(int idPalabra)
+        public PersonaDTO Obtener(int idPersona)
         {
-           PersonaTabla personaEnBaseDeDatos = _obtenerPorIdAD.Obtener(idPalabra);
-            PersonaDTO laPersonaAMostrar = ConvertirAPersonaAMostrar(personaEnBaseDeDatos);
-            return laPersonaAMostrar;
+            PersonaTabla personaEnBaseDeDatos = _obtenerPorIdAD.Obtener(idPersona);
+            if (personaEnBaseDeDatos == null)
+            {
+                return null;
+            }
+
+            return ConvertirAPersonaAMostrar(personaEnBaseDeDatos);
         }
         private PersonaDTO ConvertirAPersonaAMostrar(PersonaTabla personaEnBaseDeDatos)
         {

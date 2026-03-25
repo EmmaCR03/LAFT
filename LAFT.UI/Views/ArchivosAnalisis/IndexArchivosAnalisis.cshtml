@@ -1,4 +1,4 @@
-﻿@model IEnumerable<LAFT.Abstracciones.Modelos.ArchivosAnalisis.ArchivosAnalisisDTO>
+@model IEnumerable<LAFT.Abstracciones.Modelos.ArchivosAnalisis.ArchivosAnalisisDTO>
 
 @{
     ViewBag.Title = "IndexArchivosAnalisis";
@@ -281,6 +281,13 @@
             @Html.ActionLink("Create New", "Create")
         </p>
 
+        @if (Model == null)
+        {
+            <p>No hay datos para mostrar.</p>
+        }
+        else
+        {
+
         <div class="table-responsive">
             <table id="myTable" class="table table-striped table-bordered">
                 <thead>
@@ -314,9 +321,21 @@
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
                             <td>
-                                @Html.Raw(item.TextoDelArchivo.Length > 10
-                                              ? item.TextoDelArchivo.Substring(0, 10) + "…"
-                                              : item.TextoDelArchivo)
+                                @{
+                                    var texto = item.TextoDelArchivo;
+                                    if (string.IsNullOrEmpty(texto))
+                                    {
+                                        <text>—</text>
+                                    }
+                                    else if (texto.Length > 10)
+                                    {
+                                        @Html.Raw(System.Web.HttpUtility.HtmlEncode(texto.Substring(0, 10)) + "…")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(System.Web.HttpUtility.HtmlEncode(texto))
+                                    }
+                                }
                             </td>
 
 
@@ -334,6 +353,8 @@
                 </tbody>
             </table>
         </div>
+
+        }
         </div>
     </div>
         @section scripts {

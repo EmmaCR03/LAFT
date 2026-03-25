@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.LN.Interfaces.Analisis.Listar;
+using LAFT.Abstracciones.LN.Interfaces.Analisis.Listar;
 using LAFT.Abstracciones.LN.Interfaces.Analisis.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.Analisis.Registrar;
 using LAFT.Abstracciones.LN.Interfaces.ArchivosAnalisis.Registrar;
@@ -57,7 +57,7 @@ namespace LAFT.UI.Controllers
             try
             {
                 _registrarAnalisis.Registrar(idPersona);
-                return RedirectToAction("ListarPorId", "Analisis");
+                return RedirectToAction("ListarPorId", "Analisis", new { idPersona = idPersona });
             }
             catch (Exception ex)
             {
@@ -72,10 +72,15 @@ namespace LAFT.UI.Controllers
             return View(laListaDeAnalisis);
 
         }
-        // GET: AnalisisPersona
+        /// <summary>Entrada coherente con el menú: lista personas con análisis.</summary>
+        public ActionResult IndexAnalisis()
+        {
+            return RedirectToAction("Listar");
+        }
+
         public ActionResult Index()
         {
-            return RedirectToAction("Index");
+            return RedirectToAction("Listar");
         }
 
         // GET: AnalisisPersona/Details/5

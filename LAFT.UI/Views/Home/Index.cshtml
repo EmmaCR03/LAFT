@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -266,6 +266,13 @@ h1 {
 
 </style>
 <body style="background-color: black; color: white;">
+
+    @if (TempData["AuthMessage"] != null)
+    {
+        <div style="max-width: 48rem; margin: 1rem auto; padding: 1rem 1.25rem; background: #2a1515; border: 1px solid #e85555; color: #ffe8e8; border-radius: 6px; text-align: center;">
+            @TempData["AuthMessage"]
+        </div>
+    }
 
     <main>
         <div id="flyer"></div>

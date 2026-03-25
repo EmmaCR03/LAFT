@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.ObtenerPorId;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.ActividadesPersona.ObtenerPorId;
 using LAFT.Abstracciones.Modelos.ActividadesPersona;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.ActividadesPersona;
@@ -25,8 +25,12 @@ namespace LAFT.LN.ActividadesPersona.ObtenerPorId
         public ActividadesPersonaDTO Obtener(int IdActividadPersona)
         {
             ActividadesPersonaTabla actividadPersonaEnBaseDeDatos = _obtenerPorIdAD.Obtener(IdActividadPersona);
-            ActividadesPersonaDTO laActividadPersonaAMostrar = ConvertirActividadesPersonaAMostrar(actividadPersonaEnBaseDeDatos);
-            return laActividadPersonaAMostrar;
+            if (actividadPersonaEnBaseDeDatos == null)
+            {
+                return null;
+            }
+
+            return ConvertirActividadesPersonaAMostrar(actividadPersonaEnBaseDeDatos);
         }
 
         private ActividadesPersonaDTO ConvertirActividadesPersonaAMostrar(ActividadesPersonaTabla actividadPersonaEnBaseDeDatos)
@@ -37,8 +41,8 @@ namespace LAFT.LN.ActividadesPersona.ObtenerPorId
                 IdActividadFinanciera = actividadPersonaEnBaseDeDatos.IdActividadFinanciera,
                 IdPersona = actividadPersonaEnBaseDeDatos.IdPersona,
                 Estado = actividadPersonaEnBaseDeDatos.Estado,
-                FechaDeRegistro = actividadPersonaEnBaseDeDatos.ToString(),
-                FechaDeModificacion = actividadPersonaEnBaseDeDatos.ToString()
+                FechaDeRegistro = actividadPersonaEnBaseDeDatos.FechaDeRegistro.ToString("yyyy-MM-dd HH:mm"),
+                FechaDeModificacion = actividadPersonaEnBaseDeDatos.FechaDeModificacion.ToString("yyyy-MM-dd HH:mm")
             };
         }
 

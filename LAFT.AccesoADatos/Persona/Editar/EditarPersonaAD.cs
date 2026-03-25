@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.Persona.Editar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.Persona.Editar;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.Persona.Persona;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,11 @@ namespace LAFT.AccesoADatos.Persona.Editar
         public async Task<int> Editar(PersonaTabla laPersonaActualizar) 
         {
             PersonaTabla laPersonaEnBaseDeDatos = _elContexto.PersonaTabla.Where(laPersona => laPersona.IdPersona == laPersonaActualizar.IdPersona).FirstOrDefault();
+            if (laPersonaEnBaseDeDatos == null)
+            {
+                return 0;
+            }
+
             laPersonaEnBaseDeDatos.NombrePersona = laPersonaActualizar.NombrePersona;
             laPersonaEnBaseDeDatos.PrimerApellidoPersona = laPersonaActualizar.PrimerApellidoPersona;
             laPersonaEnBaseDeDatos.SegundoApellidoPersona = laPersonaActualizar.SegundoApellidoPersona;

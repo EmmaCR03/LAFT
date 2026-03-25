@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesFinancieras.ObtenerPorId;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesFinancieras.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.ObtenerPorId;
 using LAFT.Abstracciones.Modelos.ActividadesFinancieras;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.ActividadesFinancieras;
@@ -25,8 +25,12 @@ namespace LAFT.LN.ActividadesFinancieras.ObtenerPorId
         public ActividadesFinancierasDTO Obtener(int id)
         {
             ActividadesFinancierasTabla actividadFEnBaseDeDatos = _obtenerPorIdAD.Obtener(id);
-            ActividadesFinancierasDTO laActividadFAMostrar = ConvertirAActividadesFAMostrar(actividadFEnBaseDeDatos);
-            return laActividadFAMostrar;
+            if (actividadFEnBaseDeDatos == null)
+            {
+                return null;
+            }
+
+            return ConvertirAActividadesFAMostrar(actividadFEnBaseDeDatos);
         }
 
         private ActividadesFinancierasDTO ConvertirAActividadesFAMostrar(ActividadesFinancierasTabla actividadFEnBaseDeDatos)
@@ -38,8 +42,8 @@ namespace LAFT.LN.ActividadesFinancieras.ObtenerPorId
                 DescripcionActividadFinanciera = actividadFEnBaseDeDatos.DescripcionActividadFinanciera,
                 NivelDeRiesgo = actividadFEnBaseDeDatos.NivelDeRiesgo,
                 Estado = actividadFEnBaseDeDatos.Estado,
-                FechaDeModificacion = actividadFEnBaseDeDatos.ToString(),
-                FechaDeRegistro = actividadFEnBaseDeDatos.ToString()
+                FechaDeRegistro = actividadFEnBaseDeDatos.FechaDeRegistro.ToString("yyyy-MM-dd HH:mm"),
+                FechaDeModificacion = actividadFEnBaseDeDatos.FechaDeModificacion.ToString("yyyy-MM-dd HH:mm")
             };
         }
 

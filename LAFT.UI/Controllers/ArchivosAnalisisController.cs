@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.Listar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.Listar;
 using LAFT.Abstracciones.LN.Interfaces.ArchivosAnalisis.Listar;
 using LAFT.Abstracciones.LN.Interfaces.ArchivosAnalisis.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.ArchivosAnalisis.Registrar;
@@ -9,6 +9,7 @@ using LAFT.LN.ArchivosAnalisis.Listar;
 using LAFT.LN.ArchivosAnalisis.ObtenerPorId;
 using LAFT.LN.ArchivosAnalisis.Registrar;
 using LAFT.LN.General;
+using LAFT.UI.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,7 @@ namespace LAFT.UI.Controllers
 
         }
         // GET: ArchivosAnalisis
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         public ActionResult IndexArchivosAnalisis()
         {
@@ -45,16 +46,21 @@ namespace LAFT.UI.Controllers
         }
 
         // GET: ArchivosAnalisis/Details/5
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         public ActionResult Details(int id)
         {
             ArchivosAnalisisDTO archivo = _obtenerId.Obtener(id);
+            if (archivo == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(archivo);
         }
 
         // GET: ArchivosAnalisis/Create
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         public ActionResult Create()
         {
@@ -78,7 +84,7 @@ namespace LAFT.UI.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         // GET: ArchivosAnalisis/Edit/5
         public ActionResult Edit(int id)
@@ -102,7 +108,7 @@ namespace LAFT.UI.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         // GET: ArchivosAnalisis/Delete/5
         public ActionResult Delete(int id)

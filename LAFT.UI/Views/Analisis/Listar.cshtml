@@ -1,15 +1,20 @@
-﻿@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.PersonaAnalizadaDto>
+@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.PersonaAnalizadaDto>
 
 @{
-    ViewBag.Title = "Listar";
+    ViewBag.Title = "Análisis de personas";
 }
 
-<h2>Listar</h2>
+<h2>Personas con análisis registrado</h2>
+<p class="text-muted">Solo aparecen personas que ya tienen al menos un análisis en base de datos. Para generar uno nuevo, use <strong>Analizar</strong> desde el listado de personas.</p>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+@if (Model == null || !Model.Any())
+{
+    <p>No hay análisis para mostrar. Registre personas y ejecute un análisis desde @Html.ActionLink("Personas", "IndexPersona", "Persona").</p>
+}
+else
+{
+
+<table class="table table-dark table-striped table-hover">
     <tr>
        
         <th>
@@ -30,7 +35,7 @@
         <th>
             @Html.DisplayNameFor(model => model.FechaDeAnalisis)
         </th>
-        <th></th>
+        <th>Acciones</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -54,8 +59,11 @@
         <td>
             @Html.DisplayFor(modelItem => item.FechaDeAnalisis)
         </td>
-       
+        <td>
+            @Html.ActionLink("Ver historial", "ListarPorId", "Analisis", new { idPersona = item.IdPersona }, new { @class = "btn btn-sm btn-outline-info" })
+        </td>
     </tr>
 }
 
 </table>
+}

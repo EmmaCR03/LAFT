@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesFinancieras.Editar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesFinancieras.Editar;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.ActividadesFinancieras;
 using System;
 using System.Collections.Generic;
@@ -20,6 +20,11 @@ namespace LAFT.AccesoADatos.ActividadesFinancieras.Editar
         public async Task<int> Editar(ActividadesFinancierasTabla laActividadFActualizar)
         {
             ActividadesFinancierasTabla laActividadFEnBaseDeDatos = _elContexto.ActividadesFinancierasTabla.Where(laActividadF => laActividadF.IdActividadFinanciera == laActividadFActualizar.IdActividadFinanciera).FirstOrDefault();
+            if (laActividadFEnBaseDeDatos == null)
+            {
+                return 0;
+            }
+
             laActividadFEnBaseDeDatos.NombreActividadFinanciera = laActividadFActualizar.NombreActividadFinanciera;
             laActividadFEnBaseDeDatos.DescripcionActividadFinanciera = laActividadFActualizar.DescripcionActividadFinanciera;
             laActividadFEnBaseDeDatos.NivelDeRiesgo = laActividadFActualizar.NivelDeRiesgo;

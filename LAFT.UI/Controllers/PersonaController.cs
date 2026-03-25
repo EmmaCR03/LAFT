@@ -60,7 +60,7 @@ public class PersonaController : Controller
     }
 
     // GET: Persona
-    [Authorize(Roles = "Administrador, Analista")]
+  
 
     public ActionResult IndexPersona()
     {
@@ -68,11 +68,15 @@ public class PersonaController : Controller
         var laListaDePersona = _listarPersona.Listar();
         return View(laListaDePersona);
     }
-    [Authorize(Roles = "Administrador, Analista")]
 
     public ActionResult Details(int id)
     {
         PersonaDTO persona = _obtenerPorIdLN.Obtener(id);
+        if (persona == null)
+        {
+            return HttpNotFound();
+        }
+
         return View(persona);
     }
     // GET: Persona/Create
@@ -80,7 +84,6 @@ public class PersonaController : Controller
     {
         return View();
     }
-    [Authorize(Roles = "Administrador, Analista")]
 
     // POST: Persona/Create
     [HttpPost]
@@ -106,15 +109,18 @@ public class PersonaController : Controller
             return View(modeloDelInventario);
         }
     }
-    [Authorize(Roles = "Administrador, Analista")]
 
     // GET: Persona/Edit/5
     public ActionResult Edit(int idPersona)
     {
         var laPersona = _obtenerPorIdLN.Obtener(idPersona);
+        if (laPersona == null)
+        {
+            return HttpNotFound();
+        }
+
         return View(laPersona);
     }
-    [Authorize(Roles = "Administrador, Analista")]
 
     // POST: Persona/Edit/5
     [HttpPost]
@@ -139,7 +145,6 @@ public class PersonaController : Controller
             return View(laPersona);
         }
     }
-    [Authorize(Roles = "Administrador, Analista")]
 
     // POST: Persona/ToggleEstado
     [HttpPost]

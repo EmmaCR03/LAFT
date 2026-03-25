@@ -22,7 +22,7 @@ namespace LAFT.UI.Controllers
             _registrarBitacoraEventosLN = new RegistrarBitacoraEventosLN();
         }
         // GET: BitacoraEventos
-        [Authorize(Roles = "Administrador")]
+      
 
         public ActionResult IndexBitacoraEventos()
         {
@@ -30,7 +30,7 @@ namespace LAFT.UI.Controllers
             List<BitacoraEventosDTO> bitacora = _listarEventos.ListarBitacora();
             return View(bitacora);
         }
-        [Authorize(Roles = "Administrador")]
+  
 
         // GET: BitacoraEventos/Create
         public ActionResult Create()
@@ -40,8 +40,7 @@ namespace LAFT.UI.Controllers
 
         // POST: Bitacora/Create
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
-
+   
         public ActionResult Create(FormCollection collection)
         {
             try

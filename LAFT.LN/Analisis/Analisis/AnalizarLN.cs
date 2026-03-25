@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.Listar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.Listar;
 using LAFT.Abstracciones.AccessoADatos.Interfaces.Analisis.Registrar;
 using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.Listar;
 using LAFT.Abstracciones.AccessoADatos.Interfaces.PalabrasClave.Listar;
@@ -50,19 +50,36 @@ namespace LAFT.LN.Analisis.Registrar
 
         public (string NivelRiesgoGenerado, int TotalDePalabrasClaveEncontradas, int CantidadArchivosEmparejado) Analizar(int idPersona)
         {
-            List<PalabrasClaveDTO> palabrasClaveLista = ListarPalabras();
+            List<PalabrasClaveDTO> palabrasClaveLista = ListarPalabras() ?? new List<PalabrasClaveDTO>();
 
             PersonaDTO persona = Obtener(idPersona);
+            if (persona == null)
+            {
+                return ("Sin análisis", 0, 0);
+            }
+
             List<ArchivosAnalisisDTO> archivos = ObtenerArchivos(persona);
 
             int contadorPalabras = 0;
 
             // Lista de palabras para convertirlas en string para el foreach
-            List<string> palabrasClave = palabrasClaveLista.Select(p => p.Palabra).ToList();
+            List<string> palabrasClave = palabrasClaveLista
+                .Where(p => p != null && !string.IsNullOrEmpty(p.Palabra))
+                .Select(p => p.Palabra)
+                .ToList();
 
             foreach (var archivo in archivos)
             {
-                string contenidoArchivo = archivo.TextoDelArchivo;
+                if (archivo == null)
+                {
+                    continue;
+                }
+
+                string contenidoArchivo = archivo.TextoDelArchivo ?? string.Empty;
+                if (contenidoArchivo.Length == 0)
+                {
+                    continue;
+                }
                 List<string> palabrasEncontradas = new List<string>();
 
                 foreach (var palabra in palabrasClave)
@@ -78,7 +95,7 @@ namespace LAFT.LN.Analisis.Registrar
                 }
             }
 
-            List<ActividadesPersonaDTO> actividades = ListarActividades(idPersona);
+            List<ActividadesPersonaDTO> actividades = ListarActividades(idPersona) ?? new List<ActividadesPersonaDTO>();
 
             int cantidadArchivos = archivos.Count;
             int cantidadPalabrasClave = contadorPalabras;
@@ -104,33 +121,56 @@ namespace LAFT.LN.Analisis.Registrar
             {
                 nivelRiesgo = "Riesgo crítico";
             }
+
+            if (string.IsNullOrEmpty(nivelRiesgo))
+            {
+                nivelRiesgo = "Sin análisis";
+            }
+
             return (nivelRiesgo, cantidadPalabrasClave, cantidadArchivos);
         }
 
         private List<ArchivosAnalisisDTO> FiltrarArchivosPorPersonaFisica(List<ArchivosAnalisisDTO> listaDeArchivos, PersonaDTO persona)
         {
             return listaDeArchivos.Where(archivo =>
+            {
+                string texto = archivo?.TextoDelArchivo ?? string.Empty;
+                if (texto.Length == 0)
+                {
+                    return false;
+                }
 
-                (!string.IsNullOrEmpty(persona.NombrePersona) && archivo.TextoDelArchivo.IndexOf(persona.NombrePersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                (!string.IsNullOrEmpty(persona.PrimerApellidoPersona) && archivo.TextoDelArchivo.IndexOf(persona.PrimerApellidoPersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
-            (!string.IsNullOrEmpty(persona.SegundoApellidoPersona) && archivo.TextoDelArchivo.IndexOf(persona.SegundoApellidoPersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
-            (!string.IsNullOrEmpty(persona.IdentificacionPersona) && archivo.TextoDelArchivo.IndexOf(persona.IdentificacionPersona, StringComparison.OrdinalIgnoreCase) >= 0)
-            ).ToList();
+                return (!string.IsNullOrEmpty(persona.NombrePersona) && texto.IndexOf(persona.NombrePersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    (!string.IsNullOrEmpty(persona.PrimerApellidoPersona) && texto.IndexOf(persona.PrimerApellidoPersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    (!string.IsNullOrEmpty(persona.SegundoApellidoPersona) && texto.IndexOf(persona.SegundoApellidoPersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    (!string.IsNullOrEmpty(persona.IdentificacionPersona) && texto.IndexOf(persona.IdentificacionPersona, StringComparison.OrdinalIgnoreCase) >= 0);
+            }).ToList();
         }
 
 
         private List<ArchivosAnalisisDTO> FiltrarArchivosPorPersonaJuridica(List<ArchivosAnalisisDTO> listaDeArchivos, PersonaDTO persona)
         {
             return listaDeArchivos.Where(archivo =>
+            {
+                string texto = archivo?.TextoDelArchivo ?? string.Empty;
+                if (texto.Length == 0)
+                {
+                    return false;
+                }
 
-                (!string.IsNullOrEmpty(persona.NombrePersona) && archivo.TextoDelArchivo.IndexOf(persona.NombrePersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
-                (!string.IsNullOrEmpty(persona.IdentificacionPersona) && archivo.TextoDelArchivo.IndexOf(persona.IdentificacionPersona, StringComparison.OrdinalIgnoreCase) >= 0)
-            ).ToList();
+                return (!string.IsNullOrEmpty(persona.NombrePersona) && texto.IndexOf(persona.NombrePersona, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    (!string.IsNullOrEmpty(persona.IdentificacionPersona) && texto.IndexOf(persona.IdentificacionPersona, StringComparison.OrdinalIgnoreCase) >= 0);
+            }).ToList();
         }
 
         private List<ArchivosAnalisisDTO> ObtenerArchivos(PersonaDTO persona)
         {
-            List<ArchivosAnalisisDTO> listaDeArchivos = _listarArchivoAnalisisAD.Listar();
+            if (persona == null)
+            {
+                return new List<ArchivosAnalisisDTO>();
+            }
+
+            List<ArchivosAnalisisDTO> listaDeArchivos = _listarArchivoAnalisisAD.Listar() ?? new List<ArchivosAnalisisDTO>();
 
             if (persona.TipoIdentificacion == 1)
             {
@@ -156,8 +196,12 @@ namespace LAFT.LN.Analisis.Registrar
         private PersonaDTO Obtener(int IdPersona)
         {
             PersonaTabla laPersonaEnBD = _obtenerPorIdAD.Obtener(IdPersona);
-            PersonaDTO laPersonaAMostrar = ConvertirAPersonaAMostrar(laPersonaEnBD);
-            return laPersonaAMostrar;
+            if (laPersonaEnBD == null)
+            {
+                return null;
+            }
+
+            return ConvertirAPersonaAMostrar(laPersonaEnBD);
         }
 
 

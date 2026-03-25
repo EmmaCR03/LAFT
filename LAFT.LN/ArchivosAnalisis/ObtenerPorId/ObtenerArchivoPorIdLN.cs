@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.ObtenerPorID;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.ObtenerPorID;
 using LAFT.Abstracciones.LN.Interfaces.ArchivosAnalisis.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.Persona.ObtenerPorId;
 using LAFT.Abstracciones.Modelos.ArchivosAnalisis;
@@ -28,8 +28,12 @@ namespace LAFT.LN.ArchivosAnalisis.ObtenerPorId
         public ArchivosAnalisisDTO Obtener(int id)
         {
             ArchivosAnalisisTabla archivoEnBaseDeDatos = _obtenerId.Obtener(id);
-            ArchivosAnalisisDTO elArchivoAMostrar = ConvertirAArchivosAMostrar(archivoEnBaseDeDatos);
-            return elArchivoAMostrar;
+            if (archivoEnBaseDeDatos == null)
+            {
+                return null;
+            }
+
+            return ConvertirAArchivosAMostrar(archivoEnBaseDeDatos);
         }
 
         private ArchivosAnalisisDTO ConvertirAArchivosAMostrar(ArchivosAnalisisTabla archivoEnBaseDeDatos)

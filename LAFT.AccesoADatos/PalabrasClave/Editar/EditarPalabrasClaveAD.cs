@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.PalabrasClave.Editar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.PalabrasClave.Editar;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.PalabrasClave;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,11 @@ namespace LAFT.AccesoADatos.PalabrasClave.Editar
         public async Task<int> Editar(PalabrasClaveTabla laPalabraActualizar)
         {
             PalabrasClaveTabla laPalabraEnBaseDeDatos = _elContexto.PalabrasClaveTabla.Where(laPalabra => laPalabra.IdPalabra == laPalabraActualizar.IdPalabra).FirstOrDefault();
+            if (laPalabraEnBaseDeDatos == null)
+            {
+                return 0;
+            }
+
             laPalabraEnBaseDeDatos.Palabra = laPalabraActualizar.Palabra;
             laPalabraEnBaseDeDatos.Orden = laPalabraActualizar.Orden;
             laPalabraEnBaseDeDatos.FechaDeRegistro = laPalabraActualizar.FechaDeRegistro;

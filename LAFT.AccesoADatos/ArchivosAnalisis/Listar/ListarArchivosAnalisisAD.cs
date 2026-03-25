@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.Listar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ArchivosAnalisis.Listar;
 using LAFT.Abstracciones.Modelos.ArchivosAnalisis;
 using LAFT.Abstracciones.Modelos.Persona;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.ArchivosAnalisis;
@@ -21,16 +21,15 @@ namespace LAFT.AccesoADatos.ArchivosAnalisis.Listar
 
         public List<ArchivosAnalisisDTO> Listar()
             {
-            List<ArchivosAnalisisDTO> laListaDeArchivos = ( from elArchivo in _elContexto.ArchivosAnalisisTabla
-                                                 select new ArchivosAnalisisDTO
-                                                 {
-                                                     FechaDeRegistro = elArchivo.FechaDeRegistro.ToString(),
-                                                     Nombre = elArchivo.Nombre,
-                                                     TextoDelArchivo = elArchivo.TextoDelArchivo,
-                                                     IdArchivo = elArchivo.IdArchivo
-                                                 }
-
-                                                ).ToList();
+            List<ArchivosAnalisisDTO> laListaDeArchivos = (from elArchivo in _elContexto.ArchivosAnalisisTabla
+                                                           select new ArchivosAnalisisDTO
+                                                           {
+                                                               FechaDeRegistro = elArchivo.FechaDeRegistro.ToString(),
+                                                               Nombre = elArchivo.Nombre,
+                                                               TextoDelArchivo = elArchivo.TextoDelArchivo,
+                                                               Fuente = elArchivo.Fuente,
+                                                               IdArchivo = elArchivo.IdArchivo
+                                                           }).ToList();
             return laListaDeArchivos;
         }
     }

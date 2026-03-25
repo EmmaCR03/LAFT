@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.LN.Interfaces.PalabrasClave.Editar;
+using LAFT.Abstracciones.LN.Interfaces.PalabrasClave.Editar;
 using LAFT.Abstracciones.LN.Interfaces.PalabrasClave.Listar;
 using LAFT.Abstracciones.LN.Interfaces.PalabrasClave.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.PalabrasClave.Registrar;
@@ -31,10 +31,10 @@ namespace LAFT.UI.Controllers
             _registrarPalabraClave = new RegistrarPalabraClaveLN();
             _editarPalabraClaveLN = new EditarPalabraClaveLN();
             _obtenerPorIdLN = new ObtenerPorIdLN();
+            _contexto = new Contexto();
         }
 
         // GET: PalabrasClave
-        [Authorize(Roles = "Administrador, Analista")]
 
         public ActionResult IndexPalabrasClave()
         {
@@ -42,7 +42,7 @@ namespace LAFT.UI.Controllers
             List<PalabrasClaveDTO> palabrasClave = _listarPalabraClave.Listar();
             return View(palabrasClave);
         }
-        [Authorize(Roles = "Administrador, Analista")]
+      
 
 
         // GET: PalabrasClave/Details/5
@@ -51,7 +51,6 @@ namespace LAFT.UI.Controllers
 
             return View(/*PalabrasClave*/);
         }
-        [Authorize(Roles = "Administrador, Analista")]
 
         // GET: PalabrasClave/Create
         public ActionResult Create()
@@ -86,12 +85,16 @@ namespace LAFT.UI.Controllers
                 return View(modeloDelaPalabraClave);
             }
         }
-        [Authorize(Roles = "Administrador, Analista")]
-
+       
         // GET: PalabrasClave/Edit/5
         public ActionResult Edit(int IdPalabra)
         {
             PalabrasClaveDTO laPalabra = _obtenerPorIdLN.Obtener(IdPalabra);
+            if (laPalabra == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(laPalabra);
         }
 
@@ -118,7 +121,6 @@ namespace LAFT.UI.Controllers
                 return View(laPalabra);
             }
         }
-        [Authorize(Roles = "Administrador, Analista")]
 
         // GET: PalabrasClave/Delete/5
         public ActionResult Delete(int id)
@@ -146,7 +148,6 @@ namespace LAFT.UI.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "Administrador, Analista")]
 
         [HttpPost]
         public ActionResult ToggleEstadoDos(int IdPalabra, bool Estado)

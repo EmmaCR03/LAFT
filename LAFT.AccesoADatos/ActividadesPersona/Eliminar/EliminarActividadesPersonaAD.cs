@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.Eliminar;
+using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.Eliminar;
 using LAFT.Abstracciones.ModelosDeBaseDeDatos.ActividadesPersona;
 using System;
 using System.Collections.Generic;
@@ -21,6 +21,11 @@ namespace LAFT.AccesoADatos.ActividadesPersona.Eliminar
         public async Task<int> Eliminar(int IdActividadPersona)
         {
             ActividadesPersonaTabla laActividadP = _elContexto.ActividadesPersonaTabla.Where(laActividad => laActividad.IdActividadPersona == IdActividadPersona).FirstOrDefault();
+            if (laActividadP == null)
+            {
+                return 0;
+            }
+
             _elContexto.ActividadesPersonaTabla.Remove(laActividadP);
             EntityState estado = _elContexto.Entry(laActividadP).State = System.Data.Entity.EntityState.Deleted;
             int cantidadDeDatosAlmacenados = await _elContexto.SaveChangesAsync();

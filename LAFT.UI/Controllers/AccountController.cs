@@ -156,8 +156,9 @@ namespace LAFT.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Asignamos el rol al usuario
-                    await UserManager.AddToRoleAsync(user.Id, model.Rol); // Asegúrate de que el modelo tiene un campo Rol
+                    // Asignamos el rol "Cliente" por defecto
+                    await UserManager.AddToRoleAsync(user.Id, "Cliente");
+
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -169,6 +170,8 @@ namespace LAFT.Controllers
                     }
                 }
             }
+
+            // Si llegamos aquí, algo falló. Recargamos la vista con el modelo.
             return View(model);
         }
 

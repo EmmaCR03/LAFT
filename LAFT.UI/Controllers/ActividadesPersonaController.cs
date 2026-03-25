@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.LN.Interfaces.General;
+using LAFT.Abstracciones.LN.Interfaces.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +25,7 @@ using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.ObtenerPorId;
 using LAFT.Abstracciones.AccessoADatos.Interfaces.ActividadesPersona.ObtenerPorId;
 using LAFT.Abstracciones.AccessoADatos.Interfaces.Persona.ObtenerPorID;
 using LAFT.Abstracciones.LN.Interfaces.Persona.ObtenerPorId;
+using LAFT.UI.Filters;
 
 namespace LAFT.UI.Controllers
 {
@@ -47,7 +48,7 @@ namespace LAFT.UI.Controllers
 
         }
         // GET: ActividadesPersona
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         public ActionResult IndexActividadesPersona(int id)
         {
@@ -63,7 +64,7 @@ namespace LAFT.UI.Controllers
         }
 
 
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         // GET: ActividadesPersona/Details/5
         public ActionResult Details(int id)
@@ -84,7 +85,7 @@ namespace LAFT.UI.Controllers
             var modelo = new ActividadesPersonaDTO { IdPersona = id };
             return View(modelo);
         }
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
 
         [HttpPost]
@@ -112,7 +113,7 @@ namespace LAFT.UI.Controllers
             }
         }
 
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         // GET: ActividadesPersona/Edit/5
         public ActionResult Edit(int id)
@@ -135,7 +136,7 @@ namespace LAFT.UI.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "Administrador, Analista")]
+        [AuthorizeRoles(Roles = "Administrador, Analista")]
 
         // GET: ActividadesPersona/Delete/5
         public ActionResult Delete(int IdActividadPersona)
@@ -150,9 +151,14 @@ namespace LAFT.UI.Controllers
             try
             {
                 // TODO: Add delete logic here
-                int cantidadDeElementosEliminados = await _eliminarActividadesPersonas.Eliminar(IdActividadPersona);
+                await _eliminarActividadesPersonas.Eliminar(IdActividadPersona);
 
-                return RedirectToAction("IndexActividadesPersona");
+                if (laActividad != null && laActividad.IdPersona > 0)
+                {
+                    return RedirectToAction("IndexActividadesPersona", new { id = laActividad.IdPersona });
+                }
+
+                return RedirectToAction("IndexPersona", "Persona");
             }
             catch
             {

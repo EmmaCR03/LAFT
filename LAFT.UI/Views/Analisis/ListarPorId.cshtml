@@ -1,15 +1,24 @@
-﻿@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.AnalisisDTO>
+@model IEnumerable<LAFT.Abstracciones.Modelos.Analisis.AnalisisDTO>
 
 @{
-    ViewBag.Title = "ListarPorId";
+    ViewBag.Title = "Historial de análisis";
 }
 
-<h2>ListarPorId</h2>
+<h2>Historial de análisis por persona</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("← Volver al listado de análisis", "Listar", "Analisis", null, new { @class = "btn btn-outline-secondary btn-sm" })
+    &nbsp;
+    @Html.ActionLink("Ir a personas", "IndexPersona", "Persona", null, new { @class = "btn btn-outline-light btn-sm" })
 </p>
-<table class="table">
+
+@if (Model == null || !Model.Any())
+{
+    <p>No hay registros de análisis para esta persona.</p>
+}
+else
+{
+<table class="table table-dark table-striped table-hover">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IdAnalisis)
@@ -32,10 +41,10 @@
         <th>
             @Html.DisplayNameFor(model => model.Comentario)
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.IdAnalisis)
@@ -58,12 +67,8 @@
         <td>
             @Html.DisplayFor(modelItem => item.Comentario)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
     </tr>
 }
 
 </table>
+}

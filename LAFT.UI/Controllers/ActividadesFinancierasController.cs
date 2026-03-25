@@ -1,4 +1,4 @@
-﻿using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.Editar;
+using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.Editar;
 using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.Listar;
 using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.ObtenerPorId;
 using LAFT.Abstracciones.LN.Interfaces.ActividadesFinancieras.Registrar;
@@ -10,6 +10,7 @@ using LAFT.LN.ActividadesFinancieras.Listar;
 using LAFT.LN.ActividadesFinancieras.ObtenerPorId;
 using LAFT.LN.ActividadesFinancieras.Registrar;
 using LAFT.LN.General;
+using LAFT.UI.Filters;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,7 @@ namespace LAFT.UI.Controllers
             _contexto = new Contexto();
         }
         // GET: ActividadesFinancieras
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         public ActionResult IndexActividadesFinancieras()
         {
@@ -48,7 +49,7 @@ namespace LAFT.UI.Controllers
             List<ActividadesFinancierasDTO> laListaDeActividadesF = _listarActividadesFinancieras.ListarActividad();
             return View(laListaDeActividadesF);
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
 
         // GET: ActividadesFinancieras/Details/5
@@ -57,7 +58,7 @@ namespace LAFT.UI.Controllers
 
             return View(/*ActividadFinanciera*/);
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
 
         // GET: ActividadesFinancieras/Create
@@ -65,7 +66,7 @@ namespace LAFT.UI.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         // POST: ActividadesFinancieras/Create
         [HttpPost]
@@ -84,7 +85,7 @@ namespace LAFT.UI.Controllers
                 return View();
             }
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         [HttpPost]
         public ActionResult ToggleEstado(int IdActividadFinanciera, bool Estado)
@@ -97,15 +98,20 @@ namespace LAFT.UI.Controllers
             }
             return RedirectToAction("IndexActividadesFinancieras");
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         // GET: ActividadesFinancieras/Edit/5
         public ActionResult Edit(int IdActividadFinanciera)
         {
             ActividadesFinancierasDTO laActividadF = _obtenerPorIdLN.Obtener(IdActividadFinanciera);
+            if (laActividadF == null)
+            {
+                return HttpNotFound();
+            }
+
             return View(laActividadF);
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         // POST: ActividadesFinancieras/Edit/5
         [HttpPost]
@@ -131,7 +137,7 @@ namespace LAFT.UI.Controllers
                 return View(laActividadF);
             }
         }
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         // GET: ActividadesFinancieras/Delete/5
         public ActionResult Delete(int id)
@@ -141,7 +147,7 @@ namespace LAFT.UI.Controllers
 
         // POST: ActividadesFinancieras/Delete/5
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -157,7 +163,7 @@ namespace LAFT.UI.Controllers
             }
         }
         [HttpPost]
-        [Authorize(Roles = "Administrador")]
+        [AuthorizeRoles(Roles = "Administrador")]
 
         public ActionResult ToggleEstadoUno(int IdActividadFinanciera, bool Estado)
         {

@@ -434,22 +434,7 @@
                                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                             </div>
                         </div>
-                        <div class="form-group row">
-                            @Html.LabelFor(model => model.Rol, "Seleccione un rol", new { @class = "col-md-2 col-form-label" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(
-                                    model => model.Rol,
-                                    new SelectList(new List<SelectListItem>
-                                    {
-                                        new SelectListItem { Value = "Administrador", Text = "Administrador" },
-                                        new SelectListItem { Value = "Analista", Text = "Analista" }
-                                    }, "Value", "Text"),
-                                    "Seleccione un rol",
-                                    new { @class = "form-control" }
-                                )
-                                @Html.ValidationMessageFor(model => model.Rol, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                        
                         <div class="row">
                             <div class="offset-md-2 col-md-10">
                                 <input type="submit" value="Registrarse" class="btn btn-light" />

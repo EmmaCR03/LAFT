@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -24,29 +24,6 @@
     <meta name="theme-color" content="#000000">
     <meta charset="UTF-8">
 
-    <div id="header">
-        <div id="headerbar">
-            <a href="/status"><img id="headerstatus" src="../img/headerbar/status-ok.png"></a>
-            <img id="headerfade_left" src="../img/headerbar/fade-left.png">
-            <div id="headernews">
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-                <p>Bienvenido al sistema de prevención LAFT</p>
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-                <p style="color: lime">Cumple con las normativas internacionales</p>
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-                <p style="color: lime">Protege la integridad financiera</p>
-                
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-                <p>Última noticia: "Nuevas medidas de prevención implementadas"</p>
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-                <p>La transparencia comienza aquí.</p>
-                <img class="newssep" src="../img/headerbar/sep.png" alt="Separator">
-            </div>
-        </div>
-        <a href="/"><img id="knob" src="../img/headerbar/knobs/tsuki_knob.png" /></a>
-        <a href="/Account/Register"><img id="knob4" src="../img/headerbar/knobs/officialknob.png" /></a>
-        <a href="/Account/Login"><img id="knob5" src="../img/headerbar/knobs/loginknob.png" /></a>
-    </div>
     <style>
 
 
@@ -445,17 +422,108 @@
             }
 
         .navbar {
-            color: white; /* Hace el texto blanco */
+            color: white;
         }
 
             .navbar a {
-                color: white; /* Cambia el color de los enlaces a blanco */
-                text-decoration: none; /* Quita subrayado de los enlaces */
+                color: white;
+                text-decoration: none;
             }
 
                 .navbar a:hover {
-                    text-decoration: underline; /* Opcional: subrayado al pasar el mouse */
+                    text-decoration: underline;
                 }
+
+        /* Barra principal: visible sobre el fondo oscuro y por debajo del header temático fijo */
+        .laft-app-nav {
+            position: relative;
+            z-index: 2000;
+            padding-top: 78px;
+            margin-bottom: 1.25rem;
+        }
+
+        .laft-app-nav .navbar.laft-navbar-main {
+            background: linear-gradient(92deg, #0a1628 0%, #124060 42%, #0d2840 100%);
+            border: 1px solid rgba(62, 224, 255, 0.65);
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.55), 0 0 22px rgba(62, 224, 255, 0.2);
+            padding: 0.4rem 1rem;
+            min-height: 54px;
+        }
+
+        .laft-app-nav .navbar.laft-navbar-main .navbar-nav .nav-link {
+            color: #dff9ff !important;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            padding: 0.55rem 0.85rem !important;
+            border-radius: 6px;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .laft-app-nav .navbar.laft-navbar-main .navbar-nav .nav-link:hover {
+            background: rgba(62, 224, 255, 0.18);
+            color: #fff !important;
+            text-decoration: none !important;
+        }
+
+        .laft-app-nav .navbar-collapse {
+            align-items: center;
+        }
+
+        .laft-app-nav .navbar.laft-navbar-main .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            font-size: 1.1rem;
+            color: #5ae8ff !important;
+            text-shadow: 0 0 14px rgba(90, 232, 255, 0.45);
+        }
+
+        .laft-app-nav .navbar-toggler {
+            border-color: rgba(62, 224, 255, 0.5);
+        }
+
+        .laft-app-nav .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        /* Pantalla de carga (usa ~/img/loader/loadtsuki.png) */
+        #laft-page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 25000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
+            background: rgba(0, 0, 0, 0.94);
+            transition: opacity 0.45s ease;
+        }
+
+        #laft-page-loader.laft-page-loader--hide {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .laft-loader-brand {
+            max-width: min(300px, 70vw);
+            height: auto;
+            animation: laft-loader-pulse 1.1s ease-in-out infinite;
+        }
+
+        .laft-loader-text {
+            color: #9ee8ff;
+            font-size: 0.9rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        @@keyframes laft-loader-pulse {
+            0%, 100% { opacity: 0.55; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.04); }
+        }
 
     </style>
 
@@ -464,29 +532,56 @@
 </head>
 
 <body>
+    <div id="laft-page-loader" aria-busy="true" aria-live="polite">
+        <img src="@(Url.Content("~/img/loader/loadtsuki.png"))" alt="" class="laft-loader-brand" width="280" height="280" />
+        <span class="laft-loader-text">Cargando…</span>
+    </div>
+    <div id="header">
+        <div id="headerbar">
+            <a href="/status"><img id="headerstatus" src="../img/headerbar/status-ok.png" alt="" /></a>
+            <img id="headerfade_left" src="../img/headerbar/fade-left.png" alt="" />
+            <div id="headernews">
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+                <p>Bienvenido al sistema de prevención LAFT</p>
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+                <p style="color: lime">Cumple con las normativas internacionales</p>
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+                <p style="color: lime">Protege la integridad financiera</p>
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+                <p>Última noticia: "Nuevas medidas de prevención implementadas"</p>
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+                <p>La transparencia comienza aquí.</p>
+                <img class="newssep" src="../img/headerbar/sep.png" alt="" />
+            </div>
+        </div>
+        <a href="/"><img id="knob" src="../img/headerbar/knobs/tsuki_knob.png" alt="Inicio" /></a>
+        <a href="/Account/Register"><img id="knob4" src="../img/headerbar/knobs/officialknob.png" alt="Registro" /></a>
+        <a href="/Account/Login"><img id="knob5" src="../img/headerbar/knobs/loginknob.png" alt="Iniciar sesión" /></a>
+    </div>
+
     <div class="paddedNuevo">
-    <div class="padded" style="color: white !important;">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm">
-            <div class="container">
-                @Html.ActionLink("LAFT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand", style = "color: white !important;" })
+    <div class="padded laft-app-nav" style="color: white !important;">
+        <nav class="navbar navbar-expand-sm navbar-dark laft-navbar-main">
+            <div class="container-fluid">
+                @Html.ActionLink("LAFT", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                        aria-expanded="false" aria-label="Alternar navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.IsInRole("Administrador") || User.IsInRole("Analista"))
                         {
-                            <li>@Html.ActionLink("PERSONAS", "IndexPersona", "Persona", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
-                            <li>@Html.ActionLink("ACTIVIDADES FINANCIERAS", "IndexActividadesFinancieras", "ActividadesFinancieras", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
-                            <li>@Html.ActionLink("ARCHIVOS ANALISIS", "IndexArchivosAnalisis", "ArchivosAnalisis", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
-                            <li>@Html.ActionLink("PALABRAS CLAVE", "IndexPalabrasClave", "PalabrasClave", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
-                            <li>@Html.ActionLink("ANALISIS", "IndexAnalisis", "Analisis", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
+                            <li class="nav-item">@Html.ActionLink("PERSONAS", "IndexPersona", "Persona", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("ACTIVIDADES FINANCIERAS", "IndexActividadesFinancieras", "ActividadesFinancieras", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("ARCHIVOS ANÁLISIS", "IndexArchivosAnalisis", "ArchivosAnalisis", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("PALABRAS CLAVE", "IndexPalabrasClave", "PalabrasClave", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("ANÁLISIS", "IndexAnalisis", "Analisis", new { area = "" }, new { @class = "nav-link" })</li>
                         }
                         else if (User.IsInRole("Administrador"))
                         {
-                            <li>@Html.ActionLink("ACTIVIDADES FINANCIERAS", "IndexActividadesFinancieras", "ActividadesFinancieras", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
-                            <li>@Html.ActionLink("BITACORA DE EVENTOS", "IndexBitacoraEventos", "BitacoraEventos", new { area = "" }, new { @class = "nav-link", style = "color: white !important;" })</li>
+                            <li class="nav-item">@Html.ActionLink("ACTIVIDADES FINANCIERAS", "IndexActividadesFinancieras", "ActividadesFinancieras", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("BITÁCORA DE EVENTOS", "IndexBitacoraEventos", "BitacoraEventos", new { area = "" }, new { @class = "nav-link" })</li>
                         }
 
                     </ul>
@@ -524,6 +619,30 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script>
+        (function () {
+            var loader = document.getElementById('laft-page-loader');
+            function hideLoader() {
+                if (!loader) return;
+                loader.classList.add('laft-page-loader--hide');
+                loader.setAttribute('aria-busy', 'false');
+                window.setTimeout(function () { loader.style.display = 'none'; }, 480);
+            }
+            window.addEventListener('load', hideLoader);
+            if (window.jQuery) {
+                window.jQuery(function ($) {
+                    $(document).ajaxStart(function () {
+                        if (!loader) return;
+                        loader.style.display = 'flex';
+                        loader.classList.remove('laft-page-loader--hide');
+                        loader.style.opacity = '1';
+                        loader.setAttribute('aria-busy', 'true');
+                    });
+                    $(document).ajaxStop(hideLoader);
+                });
+            }
+        })();
+    </script>
     @RenderSection("scripts", required: false)
 
 </body>
